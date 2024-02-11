@@ -9,6 +9,10 @@
 
 ## Установка
 
+```shell
+./vendor/bin/sail up
+```
+
 composer require laravel/sail --dev
 ./vendor/bin/sail install
 cp .env.example .env
