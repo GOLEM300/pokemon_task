@@ -20,9 +20,11 @@
                     <option class="generation__option" value="8">Поколение 8</option>
                     <option class="generation__option" value="9">Поколение 9</option>
                 </select>
-                <button class="generation_button" onclick="fetchPokemons()">Найти покемонов</button>
             </div>
-            <button class="control_panel__sort_button" onclick="sortPokemons()">Сортировать</button>
+            <div class="control_panel__buttons">
+                <button class="control_panel__button" onclick="fetchPokemons()">Найти покемонов</button>
+                <button class="control_panel__button" onclick="sortPokemons()">Сортировать</button>
+            </div>
         </div>
 
     </div>
@@ -30,6 +32,32 @@
 
 
 <style>
+    body {
+        background-color: #d1e5d9 !important;
+        background-image: url(https://ahost2.bulbagarden.net/content/bulbagarden/images/bg-green-2x-optim.png), linear-gradient(180deg, #e5f1ec 0%, #e5f1ec 322px, #d1e5d9 322px) !important;
+        background-repeat: no-repeat !important;
+        background-position: center 83px, 0 0 !important;
+        background-size: 2250px, auto !important;
+        font-family: sans-serif;
+    }
+
+    .pokemon_cards::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .pokemon_cards::-webkit-scrollbar-track {
+        background-color: #f0f0f0;
+    }
+
+    .pokemon_cards::-webkit-scrollbar-thumb {
+        background-color: #999999;
+        border-radius: 4px;
+    }
+
+    .pokemon_cards::-webkit-scrollbar-thumb:hover {
+        background-color: #777777;
+    }
+
     .container {
         width: 100%;
         height: 100%;
@@ -43,34 +71,41 @@
         border-radius: 2px;
         display: flex;
         justify-content: space-between;
-        width: 640px;
-        align-items: flex-start;
+        width: 800px;
+        margin: 20px;
     }
 
     .pokemon_cards {
-        background-color: #d668dc;
-        border-radius: 10px;
+        border: 2px solid #682A68;
+        background-color: #78C850;
+        border-radius: 20px;
         padding: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         display: flex;
         flex-direction: column;
         align-items: center;
         overflow-y: auto;
-        height: 320px;
-        width: 200px;
+        height: 400px;
+        width: 320px;
         overflow-x: hidden;
+        scrollbar-width: thin;
+        scrollbar-color: #999999 #f0f0f0;
     }
 
     .pokemon_card {
+        background-color: #A7DB8D;
+        margin-bottom: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 200px;
-        height: 240px;
-        border-radius: 8px;
-        object-fit: cover;
-        background-color: #e8dec2;
-        margin: 10px;
+        width: 300px;
+        border-radius: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding-bottom: 10px;
+    }
+
+    .pokemon_card:last-child {
+        margin-bottom: 0px
     }
 
     .pokemon_info {
@@ -80,28 +115,26 @@
     }
 
     .pokemon_card__pokemon_img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
+        width: 120px;
+        height: 120px;
         object-fit: cover;
-        background-color: #644d10;
-        margin-bottom: 20px;
+        border-radius: 50%;
+        background-color: #e5f1ec;
+        margin: 20px;
     }
 
     .control_panel {
-        background-color: #4CAF50;
-        border-radius: 10px;
-        padding: 20px;
+        border: 2px solid #682A68;
+        background-color: #78C850;
+        border-radius: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         display: flex;
-        flex-direction: column;
-        overflow: auto;
-        width: 240px;
-        height: 96px;
-    }
-
-    .pokemon_abilities__pokemon_ability {
-        margin: 0px 4px 0px 4px;
+        flex-direction: row;
+        justify-content: space-around;
+        overflow: hidden;
+        width: 360px;
+        height: 160px;
+        padding: 20px;
     }
 
     .pokemon_types {
@@ -109,8 +142,71 @@
         flex-direction: row;
     }
 
+    .pokemon_info__pokemon_id {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
     .pokemon_types__pokemon_type {
-        margin: 0px 4px 0px 4px;
+        font-size: 16px;
+    }
+
+    .pokemon_abilities__pokemon_ability {
+        font-size: 16px;
+    }
+
+    .generation {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .generation__select {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #333;
+        width: 120px;
+        height: 38px;
+    }
+
+    .generation__option {
+        text-align-last: center;
+        background-color: #fff;
+        color: #333;
+    }
+
+    .generation__option:hover {
+        background-color: #f5f5f5;
+    }
+
+    .control_panel__buttons {
+        display: flex;
+        flex-direction: column;
+        height: 96px;
+        justify-content: space-between;
+    }
+
+    .control_panel__button {
+        background-color: #ffcc00;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .control_panel__button:hover {
+        background-color: #ff9900;
+    }
+
+    .control_panel__button:active {
+        background-color: #ff6600;
     }
 
 </style>
@@ -120,15 +216,23 @@
         fetchPokemons()
     })
 
+    /**
+     * Сортировка
+     */
     function sortPokemons() {
         const pokemon_cards = document.querySelector('.pokemon_cards');
         let elements = pokemon_cards.children;
 
-        for(let i = elements.length - 1; i>=0; i--) {
+        for (let i = elements.length - 1; i >= 0; i--) {
             pokemon_cards.appendChild(elements[i]);
         }
     }
 
+    /**
+     * Получаем список из 5 случайных покемонов
+     * Для выбранного поколения
+     * @returns {Promise<void>}
+     */
     const fetchPokemons = async () => {
         const generation = document.getElementById('generation').value
 
@@ -157,6 +261,12 @@
         }
     }
 
+    /**
+     * Берем покемона по его имени
+     * @param pokemon_name
+     * @param index
+     * @returns {Promise<void>}
+     */
     const getPokemon = async (pokemon_name, index) => {
         try {
             const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon_name}`)
@@ -178,7 +288,12 @@
         }
     }
 
-
+    /**
+     * Карточка покемона
+     * @param pokemon
+     * @param index
+     * @returns {HTMLDivElement}
+     */
     function drawPokemon(pokemon, index) {
         const pokemon_card = document.createElement('div')
         pokemon_card.classList.add('pokemon_card')
@@ -205,33 +320,55 @@
 
         pokemon_card.appendChild(pokemon_info)
 
+        pokemon_card.appendChild(drawPokemonAbilities(pokemon))
+
+        pokemon_card.appendChild(drawPokemonTypes(pokemon))
+
+        return pokemon_card
+    }
+
+    /**
+     * Способности покемона
+     * @param pokemon
+     * @returns {HTMLSpanElement}
+     */
+    function drawPokemonAbilities(pokemon) {
         const pokemon_abilities = document.createElement('div')
         pokemon_abilities.classList.add('pokemon_abilities')
 
-        for (const ability of pokemon.abilities) {
-            const pokemon_ability = document.createElement('span')
-            pokemon_ability.classList.add('pokemon_abilities__pokemon_ability')
-            pokemon_ability.textContent = ability.ability.name
+        let abilities_array = []
 
-            pokemon_abilities.appendChild(pokemon_ability)
+        for (const ability of pokemon.abilities) {
+            abilities_array.push(ability.ability.name)
         }
 
-        pokemon_card.appendChild(pokemon_abilities)
+        const pokemon_ability = document.createElement('span')
+        pokemon_ability.classList.add('pokemon_abilities__pokemon_ability')
+        pokemon_ability.textContent = 'Способности: ' + abilities_array.toString()
 
+        return pokemon_abilities.appendChild(pokemon_ability)
+    }
+
+    /**
+     * Тип покемона
+     * @param pokemon￼
+     * @returns {HTMLSpanElement}
+     */
+    function drawPokemonTypes(pokemon) {
         const pokemon_types = document.createElement('div')
         pokemon_types.classList.add('pokemon_types')
 
-        for (const type of pokemon.types) {
-            const pokemon_type = document.createElement('span')
-            pokemon_type.classList.add('pokemon_types__pokemon_type')
-            pokemon_type.textContent = type.type.name
+        let types_array = []
 
-            pokemon_types.appendChild(pokemon_type)
+        for (const type of pokemon.types) {
+            types_array.push(type.type.name)
         }
 
-        pokemon_card.appendChild(pokemon_types)
+        const pokemon_type = document.createElement('span')
+        pokemon_type.classList.add('pokemon_types__pokemon_type')
+        pokemon_type.textContent = 'Тип: ' + types_array.toString()
 
-        return pokemon_card
+        return pokemon_types.appendChild(pokemon_type)
     }
 
 
