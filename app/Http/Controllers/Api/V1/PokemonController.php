@@ -17,9 +17,9 @@ class PokemonController extends Controller
      */
     public function getAllPokemons(): JsonResponse
     {
-        $region = request('region');
+        $region = request('region') ?? '';
 
-        $location = request('location');
+        $location = request('location') ?? '';
 
         $pokemons = Pokemon::getAllPokemons($region,$location);
 
@@ -91,15 +91,5 @@ class PokemonController extends Controller
         $pokemon->delete();
 
         return response()->json(['message' => 'succeed']);
-    }
-
-    public function getPokemonImage(Pokemon $pokemon): StreamedResponse
-    {
-        return Storage::response($pokemon->image);
-    }
-
-    public function getPokemonAbilityImage(Pokemon $pokemon): StreamedResponse
-    {
-        return Storage::response($pokemon->abilities['ability_img']);
     }
 }

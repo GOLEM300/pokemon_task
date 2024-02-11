@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Validator::extend('unique_pokemon_name', function ($attribute, $value, $parameters) {
+
+            $new_pokemon_id = (int)Str::afterLast($parameters[2], '/');
+
+            $old_pokemon = DB::table('pokemons')
+                ->select('id')
+                ->where('name', '=', $value)
+                ->first();
+
+            if (is_null($old_pokemon)) return true;
+
+            $old_pokemon_id = (int)$old_pokemon->id;
+
+            return $new_pokemon_id === $old_pokemon_id;
+        });
     }
 }

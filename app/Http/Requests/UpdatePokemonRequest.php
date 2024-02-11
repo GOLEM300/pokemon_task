@@ -24,7 +24,7 @@ class UpdatePokemonRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:pokemons,name',
+            'name' => 'required|string|unique_pokemon_name:pokemons,name,'.request()->getRequestUri(),
             'image' => 'required|file|mimes:jpg,bmp,png',
             'shape' => 'required|in:head,head_legs,fins,wings',
             'location' => 'required|in:Volcano,Cinnabar Gym,Mansion|string|max:255',

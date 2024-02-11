@@ -31,7 +31,7 @@ Route::group(
             ],
             function () {
 
-                Route::get('/{region?}/{location?}','PokemonController@getAllPokemons');
+                Route::get('/get_all/{region?}/{location?}','PokemonController@getAllPokemons');
 
                 Route::get('/{pokemon}','PokemonController@pokemonShow');
 
@@ -40,11 +40,17 @@ Route::group(
                 Route::delete('/{pokemon}','PokemonController@pokemonDestroy');
 
                 Route::post('/{pokemon}','PokemonController@pokemonUpdate');
+            }
+        );
 
-                //images
-                Route::get('image/{pokemon}','PokemonController@getPokemonImage');
+        Route::group(
+            [
+                'prefix' => 'images'
+            ],
+            function () {
+                Route::get('/image/{pokemon}','ImageController@getPokemonImage');
 
-                Route::get('ability_image/{pokemon}','PokemonController@getPokemonAbilityImage');
+                Route::get('/ability_image/{pokemon}','ImageController@getPokemonAbilityImage');
             }
         );
     }

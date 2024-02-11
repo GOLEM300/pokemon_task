@@ -25,7 +25,7 @@ class Pokemon extends Model
      * @param string|null $location
      * @return array
      */
-    public static function getAllPokemons(?string $region,?string $location) : array
+    public static function getAllPokemons(?string $region = '',?string $location = '') : array
     {
         $pokemons_query = self::select([
                 'pokemons.id',
@@ -38,11 +38,11 @@ class Pokemon extends Model
             ->leftJoin('locations', 'locations.name', '=', 'pokemons.location')
             ->leftJoin('regions', 'locations.region_id', '=', 'regions.id');
 
-        if (DB::table('regions')->where('name','=',$region)->exists()) {
+        if ($region !== '') {
             $pokemons_query->where('regions.name', '=', $region);
         }
 
-        if (DB::table('locations')->where('name','=',$location)->exists()) {
+        if ($location !== '') {
             $pokemons_query->where('locations.name', '=', $location);
         }
 

@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Location;
-use App\Models\Region;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -39,7 +36,7 @@ class DatabaseSeeder extends Seeder
             $this->locations[$key]['region_id'] = $kanto_id;
         }
 
-        DB::table('locations')->upsert($this->locations,['name'],['name']);
+        DB::table('locations')->upsert($this->locations,['name'],['name','region_id']);
 
     }
 }
