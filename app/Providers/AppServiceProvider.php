@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        //Кастомное правило на случай если имя покемона занято, но занято им самим при update
         Validator::extend('unique_pokemon_name', function ($attribute, $value, $parameters) {
 
             $new_pokemon_id = (int)Str::afterLast($parameters[2], '/');
