@@ -18,4 +18,5 @@ cp .env.example .env
 ./vendor/bin/sail artisan db:seed
 ```
 
+Frontend - /pokemons
 
