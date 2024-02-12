@@ -1,0 +1,305 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/v1/images/image/{pokemon}": {
+            "get": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "description": "Фото покемона",
+                "operationId": "getPokemonImageById",
+                "parameters": [
+                    {
+                        "name": "pokemon",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pokemon image retrieved successfully",
+                        "content": {
+                            "image/jpeg": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Pokemon not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/images/ability_image/{pokemon}": {
+            "get": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "description": "Фото его способности",
+                "operationId": "getPokemonAbilityImageById",
+                "parameters": [
+                    {
+                        "name": "pokemon",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pokemon image retrieved successfully",
+                        "content": {
+                            "image/jpeg": {}
+                        }
+                    },
+                    "404": {
+                        "description": "Pokemon not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/pokemons/get_all/": {
+            "get": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "description": "Найти всех покемонов",
+                "operationId": "getAllPokemons",
+                "parameters": [
+                    {
+                        "name": "region",
+                        "in": "query",
+                        "description": "Регион",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "location",
+                        "in": "query",
+                        "description": "Локация",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/v1/pokemons/": {
+            "post": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "description": "Добавить нового покемона",
+                "operationId": "createPokemon",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "location",
+                                    "image",
+                                    "shape",
+                                    "ability_ru",
+                                    "ability_eng",
+                                    "ability_img"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Имя",
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "description": "Локация",
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "description": "Фото",
+                                        "type": "file"
+                                    },
+                                    "shape": {
+                                        "description": "Форма",
+                                        "type": "string"
+                                    },
+                                    "ability_ru": {
+                                        "description": "Способность на русском",
+                                        "type": "string"
+                                    },
+                                    "ability_eng": {
+                                        "description": "Способность на английском",
+                                        "type": "string"
+                                    },
+                                    "ability_img": {
+                                        "description": "Фото его способности",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Pokemon created successfully"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/v1/pokemons/{pokemon}": {
+            "get": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "description": "Возвращает покемона по его id",
+                "operationId": "getPokemonById",
+                "parameters": [
+                    {
+                        "name": "pokemon",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pokemon information retrieved successfully"
+                    },
+                    "404": {
+                        "description": "Pokemon not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "description": "Внести изменения для покемона",
+                "operationId": "updatePokemon",
+                "parameters": [
+                    {
+                        "name": "pokemon",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "location",
+                                    "image",
+                                    "shape",
+                                    "ability_ru",
+                                    "ability_eng",
+                                    "ability_img"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "Имя",
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "description": "Локация",
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "description": "Фото",
+                                        "type": "file"
+                                    },
+                                    "shape": {
+                                        "description": "Форма",
+                                        "type": "string"
+                                    },
+                                    "ability_ru": {
+                                        "description": "Способность на русском",
+                                        "type": "string"
+                                    },
+                                    "ability_eng": {
+                                        "description": "Способность на английском",
+                                        "type": "string"
+                                    },
+                                    "ability_img": {
+                                        "description": "Фото его способности",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Pokemon updated successfully"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Pokemon not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Pokemons"
+                ],
+                "description": "Удалить покемона по id",
+                "operationId": "deletePokemon",
+                "parameters": [
+                    {
+                        "name": "pokemon",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Pokemon deleted successfully"
+                    },
+                    "404": {
+                        "description": "Pokemon not found"
+                    }
+                }
+            }
+        }
+    }
+}
