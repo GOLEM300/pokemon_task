@@ -17,6 +17,6 @@ cp .env.example .env
 ./vendor/bin/sail artisan migrate
 ./vendor/bin/sail artisan db:seed
 ```
-
-Frontend - /pokemons
+Апи документация - /api/documentation
+Фронтенд - /pokemons
 
